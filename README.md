@@ -1,1 +1,8 @@
-# os-hw-3
+# Programming Project 3
+
+---
+Author: Branden Kim
+
+Class: Operating Systems
+
+---
