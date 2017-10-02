@@ -13,9 +13,9 @@ int main(int argc, const char *argv[]) {
     char *p1 = "/tmp/p1";
     char *p2 = "/tmp/p2";
 
-    // Wait until Pipe #1 is open
-    while ((fd1 = open(p1, O_WRONLY)) < 0) {}
-    while ((fd2 = open(p2, O_RDONLY)) < 0) {}
+    // Wait until Pipe #1 & #2 are open
+    while ((fd1 = open(p1, O_WRONLY)) < 0) {} // Write to P2
+    while ((fd2 = open(p2, O_RDONLY)) < 0) {} // Read from P2
     
     // Read in input & Send to Process 2
     while (fgets(buf, MAX_BUF, stdin)) {

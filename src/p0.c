@@ -26,7 +26,7 @@ int main() {
     int fd5 = open(p5, O_RDONLY);
     char buf[MAX_BUF];
 
-    // Wait for p3 to signal its at the end
+    // Wait for Process 3 to signal its at the end
     while ((i = read(fd5, buf, MAX_BUF)) != 0) {
         buf[i] = '\0';
         if (strcmp("*#*#", buf) == 0) { break; }

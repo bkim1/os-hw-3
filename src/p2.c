@@ -15,11 +15,11 @@ int main(int argc, const char *argv[]) {
     char *p3 = "/tmp/p3";
     char *p4 = "/tmp/p4";
 
-    // Wait until Pipe #1 & #2 are open
-    while ((fd1 = open(p1, O_RDONLY)) < 0) {}
-    while ((fd2 = open(p2, O_WRONLY)) < 0) {}
-    while ((fd3 = open(p3, O_WRONLY)) < 0) {}
-    while ((fd4 = open(p4, O_RDONLY)) < 0) {}
+    // Wait until Pipe #1, #2, #3, #4 are open
+    while ((fd1 = open(p1, O_RDONLY)) < 0) {} // Read from P1
+    while ((fd2 = open(p2, O_WRONLY)) < 0) {} // Write to P1
+    while ((fd3 = open(p3, O_WRONLY)) < 0) {} // Write to P3
+    while ((fd4 = open(p4, O_RDONLY)) < 0) {} // Read from P3
     
     while ((i = read(fd1, buf, MAX_BUF)) != 0) {
         buf[i] = '\0';
