@@ -8,7 +8,7 @@
 #define MAX_BUF 1024
 
 int main(int argc, const char *argv[]) {
-    int i, fd1, fd2, fd3, fd4;
+    int i, d, fd1, fd2, fd3, fd4;
     char buf[MAX_BUF], ack[MAX_BUF];
     char *p1 = "/tmp/p1";
     char *p2 = "/tmp/p2";
@@ -23,16 +23,11 @@ int main(int argc, const char *argv[]) {
     
     while ((i = read(fd1, buf, MAX_BUF)) != 0) {
         buf[i] = '\0';
-        // Send Acknowledgement
+        // Send Acknowledgement to Process 1
         write(fd2, "!", strlen("!"));
 
         // Check for user input to end
-        if (strcmp("*#*#\n", buf) == 0) { 
-            printf("BREAKING\n");
-            break; 
-        }
-        // Adjust for new line char from input
-        if (buf[i-1] == '\n') { buf[i-1] = '\0'; }
+        if (strcmp("*#*#\n", buf) == 0) { break; }
 
         // Change case of each character
         int c;
@@ -40,18 +35,15 @@ int main(int argc, const char *argv[]) {
             if (buf[c] <= 'Z' && buf[c] >= 'A') { buf[c] = buf[c] + 32; }
             else if (buf[c] <= 'z' && buf[c] >= 'a') { buf[c] = buf[c] - 32; }
         }
-        printf("%s\n", buf);
+        printf("%s", buf);
 
         // Write to Process 3
         write(fd3, buf, strlen(buf));
 
-        // Wait for acknowledgement
-        while((i = read(fd4, ack, MAX_BUF)) != 0) {
+        // Wait for acknowledgement from Process 3
+        while((d = read(fd4, ack, MAX_BUF)) != 0) {
             ack[i] = '\0';
-            if (strcmp("!", ack) == 0) { 
-                printf("Got ack!\n");
-                break; 
-            }
+            if (strcmp("!", ack) == 0) { break; }
         }
     }
 

@@ -31,7 +31,7 @@ int main() {
         buf[i] = '\0';
         if (strcmp("*#*#", buf) == 0) { break; }
     }
-    // Unlink & Close all pipes
+    // Close open pipes & Unlink from OS
     close(fd5);
 
     unlink(p1);

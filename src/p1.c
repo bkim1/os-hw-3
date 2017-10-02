@@ -20,22 +20,21 @@ int main(int argc, const char *argv[]) {
     // Read in input & Send to Process 2
     while (fgets(buf, MAX_BUF, stdin)) {
         if (strcmp("*#*#\n", buf) == 0) { break; }
+
         // Send to Process 2
         write(fd1, buf, strlen(buf));
 
-        // Wait for acknowledgement
+        // Wait for acknowledgement from Process 2
         while((i = read(fd2, ack, MAX_BUF)) != 0) {
             ack[i] = '\0';
-            if (strcmp("!", ack) == 0) { 
-                printf("Got ack!\n");
-                break; 
-            }
+            if (strcmp("!", ack) == 0) { break; }
         }
     }
 
     // Send finished signal to P2
-    write(fd1, buf, strlen(buf));
+    write(fd1, "", strlen(""));
     close(fd1);
+    close(fd2);
 
     return 0;
 }
