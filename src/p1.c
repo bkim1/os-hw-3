@@ -19,6 +19,7 @@ int main(int argc, const char *argv[]) {
     
     // Read in input & Send to Process 2
     while (fgets(buf, MAX_BUF, stdin)) {
+        // Break if input is '*#*#'
         if (strcmp("*#*#\n", buf) == 0) { break; }
 
         // Send to Process 2

@@ -23,12 +23,14 @@ int main(int argc, const char *argv[]) {
     // Get stuff from Pipe #2
     while ((i = read(fd3, buf, MAX_BUF)) != 0) {
         buf[i] = '\0';
-        // Send acknowledgment to Process 2
-        write(fd4, "!", strlen("!"));
-
+        // Break if input is '*#*#'
         if (strcmp("*#*#", buf) == 0) { break; }
         
+        // Output the buffer
         printf("%s", buf);
+
+        // Send acknowledgment to Process 2
+        write(fd4, "!", strlen("!"));
     }
     // Notify Process 0 to close the pipes
     write(fd5, "*#*#", strlen("*#*#"));

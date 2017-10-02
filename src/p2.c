@@ -23,8 +23,6 @@ int main(int argc, const char *argv[]) {
     
     while ((i = read(fd1, buf, MAX_BUF)) != 0) {
         buf[i] = '\0';
-        // Send Acknowledgement to Process 1
-        write(fd2, "!", strlen("!"));
 
         // Check for user input to end
         if (strcmp("*#*#\n", buf) == 0) { break; }
@@ -39,6 +37,9 @@ int main(int argc, const char *argv[]) {
 
         // Write to Process 3
         write(fd3, buf, strlen(buf));
+
+        // Send Acknowledgement to Process 1
+        write(fd2, "!", strlen("!"));
 
         // Wait for acknowledgement from Process 3
         while((d = read(fd4, ack, MAX_BUF)) != 0) {
